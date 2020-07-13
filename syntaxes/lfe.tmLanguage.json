@@ -1,0 +1,209 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "LFE",
+	"patterns": [
+		{
+			"include": "#comment"
+		},
+		{
+			"include": "#comment_block"
+		},
+		{
+			"include": "#quoted-sexp"
+		},
+		{
+			"include": "#sexp"
+		},
+		{
+			"include": "#keyfn"
+		},
+		{
+			"include": "#constants"
+		},
+		{
+			"include": "#strings"
+		}
+	],
+	"repository": {
+		"comment": {
+			"patterns": [{
+				"name": "comment.line.lfe",
+				"match": "(;).*$\n?"
+			}]
+		},
+		"comment_block": {
+			"name": "comment.block.lfe",
+			"begin": "\\#\\|",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.comment.lfe"
+				}
+			},
+			"end": "\\|\\#"
+			},
+		"constants": {
+			"patterns": [
+				{
+					"name": "constant.numeric.lfe",
+					"match": "\\b((0(x|X)[0-9a-fA-F]*)|true|false|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f|ll|LL|ull|ULL)?\\b"
+				},
+				{
+					"include": "#keyword"
+				}
+			]
+
+		},	
+		"keyword": {
+			"match": "(?<=(\\s|\\(|\\[|\\{))'[\\w\\#\\.\\-\\_\\:\\+\\=\\>\\<\\/\\!\\?\\*]+(?=(\\s|\\)|\\]|\\}|\\,))",
+			"name": "variable.other.constant.lfe"
+		},
+		"keyfn": {
+			"patterns": [
+				{
+					"match": "(?<=(\\s|\\(|\\[|\\{))(if(-[-\\p{Ll}\\?]*)?|when(-[-\\p{Ll}]*)?|for(-[-\\p{Ll}]*)?|cond|do|let|let\\*(-[-\\p{Ll}\\?]*)?|binding|loop|recur|fn|throw[\\p{Ll}\\-]*|try|catch|finally|([\\p{Ll}]*case))(?=(\\s|\\)|\\]|\\}))",
+					"name": "storage.control.lfe"
+				},
+				{
+					"match": "(?<=(\\s|\\(|\\[|\\{))(!|:|export|import|use|require|load|compile|from|rename|behaviour|orelse|let(def(?!ault)[\\p{Ll}\\-]*))(?=(\\s|\\)|\\]|\\}))",
+					"name": "keyword.control.lfe"
+				},
+				{
+					"match": "(?<=(\\s|\\(|\\[|\\{))(\\+|\\-|\\*|\\/|<|>|>=|=<|==|/=|=:=|=/=)(?=(\\s|\\)|\\]|\\}))",
+					"name": "entity.name.class"
+				},
+				{
+					"match": "(?<=(\\s|\\(|\\[|\\{))(abs|lambda|funcall|car|cdr|cons|list|list\\*|receive|eval-when-compile|fletrec|tuple|and|or|spawn|apply|gief|match-lambda|quote|is_atom|is_number|is_integer|is_float|is_list|is_map)(?=(\\s|\\)|\\]|\\}))",
+					"name": "variable.other.lfe"
+				}
+			]
+		},
+		"dynamic-variables": {
+			"match": "\\*[\\w\\.\\-\\_\\:\\+\\=\\>\\<\\!\\?\\d]+\\*",
+			"name": "meta.symbol.dynamic.clojure"
+		},
+		"quoted-sexp": {
+			"begin": "(['``]\\()",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.section.expression.begin.lfe"
+				}
+			},
+			"end": "(\\))$|(\\)(?=[\\}\\]\\)\\s]*(?:;|$)))|(\\))",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.section.expression.end.trailing.lfe"
+				},
+				"2": {
+					"name": "punctuation.section.expression.end.trailing.lfe"
+				},
+				"3": {
+					"name": "punctuation.section.expression.end.lfe"
+				}
+			},
+			"name": "meta.quoted-expression.lfe",
+			"patterns": [
+				{
+					"include": "$self"
+				}
+			]
+		},
+
+
+
+		"sexp": {
+			"begin": "(\\()",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.section.expression.begin.lfe"
+				}
+			},
+			"end": "(\\))$|(\\)(?=[\\}\\]\\)\\s]*(?:;|$)))|(\\))",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.section.expression.end.trailing.lfe"
+				},
+				"2": {
+					"name": "punctuation.section.expression.end.trailing.lfe"
+				},
+				"3": {
+					"name": "punctuation.section.expression.end.lfe"
+				}
+			},
+			"name": "meta.expression.lfe",
+			"patterns": [
+				{
+					"begin": "(?<=\\()(declare|def(?!ault)[\\w\\d._:+=><!?*-]*|[\\w._:+=><!?*-][\\w\\d._:+=><!?*-]*/def(?!ault)[\\w\\d._:+=><!?*-]*)\\s+",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.control.lfe"
+						}
+					},
+					"end": "(?=\\))",
+					"name": "meta.definition.global.lfe",
+					"patterns": [
+						{
+							"include": "#dynamic-variables"
+						},
+						{
+							"match": "([\\p{L}\\.\\-\\_\\+\\=\\>\\<\\!\\?\\*][\\w\\.\\-\\_\\:\\+\\=\\>\\<\\!\\?\\*\\d]*)",
+							"name": "entity.global.lfe"
+						},
+						{
+							"include": "$self"
+						}
+					]
+				},
+				{
+					"include": "#keyfn"
+				},
+				{
+					"include": "#constants"
+				},
+				{
+					"include": "#sexp"
+				},
+				{
+					"match": "(?<=\\()([^\"]+?)(?=\\s|\\))",
+					"captures": {
+						"1": {
+							"name": "entity.name.function.lfe"
+						}
+					},
+					"patterns": [
+						{
+							"include": "$self"
+						}
+					]
+				},
+				{
+					"include": "$self"
+				}
+			]
+		},
+
+
+
+		"strings": {
+			"begin": "(?<!\\\\)(\")",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.definition.string.begin.lfe"
+				}
+			},
+			"end": "(\")",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.definition.string.end.lfe"
+				}
+			},
+			"name": "string.quoted.double.lfe",
+			"patterns": [
+				{
+					"match": "\\\\.",
+					"name": "constant.character.escape.lfe"
+				}
+			]
+		}
+	},
+	"scopeName": "source.lfe"
+}
