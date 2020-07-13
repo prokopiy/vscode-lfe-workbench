@@ -26,5 +26,9 @@
 			"language": "lfe",
             "path": "./snippets/lfe.json"
         }]
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/prokopiy/vscode-lfe-workbench.git"
     }
 }
