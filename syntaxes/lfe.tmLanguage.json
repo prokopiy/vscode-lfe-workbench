@@ -60,19 +60,23 @@
 		"keyfn": {
 			"patterns": [
 				{
-					"match": "(?<=(\\s|\\(|\\[|\\{))(if(-[-\\p{Ll}\\?]*)?|when(-[-\\p{Ll}]*)?|for(-[-\\p{Ll}]*)?|cond|do|let|let\\*(-[-\\p{Ll}\\?]*)?|binding|loop|recur|fn|throw[\\p{Ll}\\-]*|try|catch|finally|([\\p{Ll}]*case))(?=(\\s|\\)|\\]|\\}))",
-					"name": "storage.control.lfe"
-				},
-				{
-					"match": "(?<=(\\s|\\(|\\[|\\{))(!|:|export|import|use|require|load|compile|from|rename|behaviour|orelse|let(def(?!ault)[\\p{Ll}\\-]*))(?=(\\s|\\)|\\]|\\}))",
+					"comment": "Service forms",
+					"match": "(?<=(\\s|\\(|\\[|\\{))(!|:|defmodule|export|import|use|require|from|rename|behaviour(def(?!ault)[\\p{Ll}\\-]*))(?=(\\s|\\)|\\]|\\}))",
 					"name": "keyword.control.lfe"
 				},
 				{
-					"match": "(?<=(\\s|\\(|\\[|\\{))(\\+|\\-|\\*|\\/|<|>|>=|=<|==|/=|=:=|=/=)(?=(\\s|\\)|\\]|\\}))",
+					"comment": "Control forms",
+					"match": "(?<=(\\s|\\(|\\[|\\{))(if(-[-\\p{Ll}\\?]*)?|when(-[-\\p{Ll}]*)?|for(-[-\\p{Ll}]*)?|cond|andalso|orelse|progn|let|let\\*|flet|flet\\*|fletrec|if|case|receive|when|after|try|catch(-[-\\p{Ll}\\?]*)?|binding|loop|recur|fn|throw[\\p{Ll}\\-]*|try|catch|finally|([\\p{Ll}]*case))(?=(\\s|\\)|\\]|\\}))",
+					"name": "storage.control.lfe"
+				},
+				{
+					"comment": "Basic operators",
+					"match": "(?<=(\\s|\\(|\\[|\\{))(\\+|\\-|\\*|\\/|<|>|>=|=<|==|/=|=:=|=/=|and|or)(?=(\\s|\\)|\\]|\\}))",
 					"name": "entity.name.class"
 				},
 				{
-					"match": "(?<=(\\s|\\(|\\[|\\{))(abs|lambda|funcall|car|cdr|cons|list|list\\*|receive|eval-when-compile|fletrec|tuple|and|or|spawn|apply|gief|match-lambda|quote|is_atom|is_number|is_integer|is_float|is_list|is_map)(?=(\\s|\\)|\\]|\\}))",
+					"comment": "Supported forms",
+					"match": "(?<=(\\s|\\(|\\[|\\{))(quote|cons|car|cdr|list|tuple|tref|tset|binary|map|map-get|lambda|match-lambda|function|abs|funcall|list\\*|eval-when-compile|fletrec|spawn|apply|gief|match-lambda|is_atom|is_number|is_integer|is_float|is_list|is_map)(?=(\\s|\\)|\\]|\\}))",
 					"name": "variable.other.lfe"
 				}
 			]
