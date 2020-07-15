@@ -2,7 +2,7 @@
     "name": "vscode-lfe-workbench",
     "displayName": "VSCode LFE Workbench",
     "description": "This VSCode extension support syntax highlighting and snippets for LFE",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "publisher": "prokopiy",
     "engines": {
         "vscode": "^1.47.0"
@@ -14,7 +14,7 @@
         "languages": [{
             "id": "lfe",
             "aliases": ["LFE", "lfe", "LISP", "lisp"],
-            "extensions": [".lfe"],
+            "extensions": [".lfe", ".lfescript"],
             "configuration": "./language-configuration.json"
         }],
         "grammars": [{

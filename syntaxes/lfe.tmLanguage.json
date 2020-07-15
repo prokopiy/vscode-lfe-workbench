@@ -52,7 +52,7 @@
 				}
 			]
 
-		},	
+		},
 		"keyword": {
 			"match": "(?<=(\\s|\\(|\\[|\\{))'[\\w\\#\\.\\-\\_\\:\\+\\=\\>\\<\\/\\!\\?\\*]+(?=(\\s|\\)|\\]|\\}|\\,))",
 			"name": "variable.other.constant.lfe"
@@ -60,23 +60,23 @@
 		"keyfn": {
 			"patterns": [
 				{
-					"comment": "Service forms",
-					"match": "(?<=(\\s|\\(|\\[|\\{))(!|:|defmodule|export|import|use|require|from|rename|behaviour(def(?!ault)[\\p{Ll}\\-]*))(?=(\\s|\\)|\\]|\\}))",
+					"comment": "Special forms",
+					"match": "(?<=(\\s|\\(|\\[|\\{))\\s*(!|:|defmodule|defmacro|export|import|use|require|from|rename|behaviour)(?=(\\s|\\)|\\]|\\}))",
 					"name": "keyword.control.lfe"
 				},
 				{
 					"comment": "Control forms",
-					"match": "(?<=(\\s|\\(|\\[|\\{))(if(-[-\\p{Ll}\\?]*)?|when(-[-\\p{Ll}]*)?|for(-[-\\p{Ll}]*)?|cond|andalso|orelse|progn|let|let\\*|flet|flet\\*|fletrec|if|case|receive|when|after|try|catch(-[-\\p{Ll}\\?]*)?|binding|loop|recur|fn|throw[\\p{Ll}\\-]*|try|catch|finally|([\\p{Ll}]*case))(?=(\\s|\\)|\\]|\\}))",
+					"match": "(?<=(\\s|\\(|\\[|\\{))\\s*(if(-[-\\p{Ll}\\?]*)?|when(-[-\\p{Ll}]*)?|for(-[-\\p{Ll}]*)?|cond|andalso|orelse|progn|prog1|prog2|let|let\\*|flet|flet\\*|fletrec|if|case|receive|when|after|try|catch(-[-\\p{Ll}\\?]*)?|binding|loop|recur|fn|throw[\\p{Ll}\\-]*|try|catch|finally|([\\p{Ll}]*case))(?=(\\s|\\)|\\]|\\}))",
 					"name": "storage.control.lfe"
 				},
 				{
 					"comment": "Basic operators",
-					"match": "(?<=(\\s|\\(|\\[|\\{))(\\+|\\-|\\*|\\/|<|>|>=|=<|==|/=|=:=|=/=|and|or)(?=(\\s|\\)|\\]|\\}))",
+					"match": "(?<=(\\s|\\(|\\[|\\{))\\s*(\\+|\\-|\\*|\\/|<|>|>=|=<|==|/=|=:=|=/=|and|or)(?=(\\s|\\)|\\]|\\}))",
 					"name": "entity.name.class"
 				},
 				{
 					"comment": "Supported forms",
-					"match": "(?<=(\\s|\\(|\\[|\\{))(quote|cons|car|cdr|list|tuple|tref|tset|binary|map|map-get|lambda|match-lambda|function|abs|funcall|list\\*|eval-when-compile|fletrec|spawn|apply|gief|match-lambda|is_atom|is_number|is_integer|is_float|is_list|is_map)(?=(\\s|\\)|\\]|\\}))",
+					"match": "(?<=(\\s|\\(|\\[|\\{))\\s*(quote|cons|car|cdr|list|tuple|tref|tset|binary|map|map-get|lambda|match-lambda|function|abs|funcall|list\\*|eval-when-compile|fletrec|spawn|apply|gief|match-lambda|is_atom|is_number|is_integer|is_float|is_list|is_map)(?=(\\s|\\)|\\]|\\}))",
 					"name": "variable.other.lfe"
 				}
 			]
@@ -86,7 +86,7 @@
 			"name": "meta.symbol.dynamic.clojure"
 		},
 		"quoted-sexp": {
-			"begin": "(['``]\\()",
+			"begin": "(['``][\\(|\\[])\\s*",
 			"beginCaptures": {
 				"1": {
 					"name": "punctuation.section.expression.begin.lfe"
@@ -115,7 +115,7 @@
 
 
 		"sexp": {
-			"begin": "(\\()",
+			"begin": "([\\(|\\[])\\s*",
 			"beginCaptures": {
 				"1": {
 					"name": "punctuation.section.expression.begin.lfe"
@@ -136,13 +136,13 @@
 			"name": "meta.expression.lfe",
 			"patterns": [
 				{
-					"begin": "(?<=\\()(declare|def(?!ault)[\\w\\d._:+=><!?*-]*|[\\w._:+=><!?*-][\\w\\d._:+=><!?*-]*/def(?!ault)[\\w\\d._:+=><!?*-]*)\\s+",
+					"begin": "(?<=[\\(|\\[]\\s*)(declare|\\s*defun[\\w\\d._:+=><!?*-]*|[\\w._:+=><!?*-][\\w\\d._:+=><!?*-]*/[\\w\\d._:+=><!?*-]*)\\s+",
 					"beginCaptures": {
 						"1": {
 							"name": "keyword.control.lfe"
 						}
 					},
-					"end": "(?=\\))",
+					"end": "(?=[\\(|\\[])",
 					"name": "meta.definition.global.lfe",
 					"patterns": [
 						{
@@ -167,7 +167,7 @@
 					"include": "#sexp"
 				},
 				{
-					"match": "(?<=\\()([^\"]+?)(?=\\s|\\))",
+					"match": "(?<=[\\(|\\[])\\s*([^\"]+?)(?=\\s|[\\)|\\]])",
 					"captures": {
 						"1": {
 							"name": "entity.name.function.lfe"
