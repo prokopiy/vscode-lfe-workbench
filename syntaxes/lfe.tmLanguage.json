@@ -48,25 +48,45 @@
 					"match": "\\b((0(x|X)[0-9a-fA-F]*)|true|false|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f|ll|LL|ull|ULL)?\\b"
 				},
 				{
-					"include": "#keyword"
+					"match": "(#[bB][\\+\\-]?[0-1]+)",
+					"name": "constant.numeric.binary.lfe"
+				},
+				{
+					"match": "(#[oO][\\+\\-]?[0-7]+)",
+					"name": "constant.numeric.octal.lfe"
+				},
+				{
+					"match": "(#[dD][\\+\\-]?[0-9]+)",
+					"name": "constant.numeric.decimal.lfe"
+				},
+				{
+					"match": "(#[xX][\\+\\-]?[0-9a-fA-F]+)",
+					"name": "constant.numeric.hexadecimal.lfe"
+				},
+				{
+					"match": "(#0*([0-9]|[1,2][0-9]|3[0-6])[rR][\\+\\-]?[0-9a-fA-F]*)",
+					"name": "constant.numeric.arbitrary-radix.lfe"
+				},
+				{
+					"include": "#atoms"
 				}
 			]
 
 		},
-		"keyword": {
-			"match": "(?<=(\\s|\\(|\\[|\\{))'[\\w\\#\\.\\-\\_\\:\\+\\=\\>\\<\\/\\!\\?\\*]+(?=(\\s|\\)|\\]|\\}|\\,))",
-			"name": "variable.other.constant.lfe"
+		"atoms": {
+			"match": "(?<=(\\s|\\(|\\[|\\{))'[\\w\\.\\-\\_\\:\\+\\=\\>\\<\\/\\!\\?\\*]+(?=(\\s|\\)|\\]|\\}|\\,))",
+			"name": "constant.numeric.atom.lfe"
 		},
 		"keyfn": {
 			"patterns": [
 				{
 					"comment": "Special forms",
-					"match": "(?<=(\\s|\\(|\\[|\\{))\\s*(!|:|defmodule|defmacro|export|import|use|require|from|rename|behaviour)(?=(\\s|\\)|\\]|\\}))",
+					"match": "(?<=(\\s|\\(|\\[|\\{))\\s*(!|:|defmodule|defmacro|defsyntax|defrecord|defun|export|import|use|require|from|rename|behaviour)(?=(\\s|\\)|\\]|\\}))",
 					"name": "keyword.control.lfe"
 				},
 				{
 					"comment": "Control forms",
-					"match": "(?<=(\\s|\\(|\\[|\\{))\\s*(if(-[-\\p{Ll}\\?]*)?|when(-[-\\p{Ll}]*)?|for(-[-\\p{Ll}]*)?|cond|andalso|orelse|progn|prog1|prog2|let|let\\*|flet|flet\\*|fletrec|if|case|receive|when|after|try|catch(-[-\\p{Ll}\\?]*)?|binding|loop|recur|fn|throw[\\p{Ll}\\-]*|try|catch|finally|([\\p{Ll}]*case))(?=(\\s|\\)|\\]|\\}))",
+					"match": "(?<=(\\s|\\(|\\[|\\{))\\s*(if(-[-\\p{Ll}\\?]*)?|when(-[-\\p{Ll}]*)?|for(-[-\\p{Ll}]*)?|cond|andalso|orelse|progn|prog1|prog2|let|let\\*|flet|flet\\*|fletrec|macrolet|syntaxlet|if|case|receive|when|after|try|catch(-[-\\p{Ll}\\?]*)?|binding|loop|recur|fn|throw[\\p{Ll}\\-]*|try|catch|finally|([\\p{Ll}]*case))(?=(\\s|\\)|\\]|\\}))",
 					"name": "storage.control.lfe"
 				},
 				{
