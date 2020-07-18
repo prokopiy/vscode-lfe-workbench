@@ -2,13 +2,14 @@
     "name": "vscode-lfe-workbench",
     "displayName": "VSCode LFE Workbench",
     "description": "This VSCode extension support syntax highlighting and snippets for LFE",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "publisher": "prokopiy",
     "engines": {
         "vscode": "^1.47.0"
     },
     "categories": [
-        "Programming Languages"
+        "Programming Languages",
+        "Snippets"
     ],
     "contributes": {
         "languages": [{
@@ -30,5 +31,9 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/prokopiy/vscode-lfe-workbench.git"
-    }
+    },
+    "bugs": {
+        "url": "https://github.com/prokopiy/vscode-lfe-workbench/issues"
+    },
+    "homepage": "https://github.com/prokopiy/vscode-lfe-workbench/blob/master/README.md"
 }
