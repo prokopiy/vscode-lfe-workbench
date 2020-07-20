@@ -86,7 +86,7 @@
 				},
 				{
 					"comment": "Control forms",
-					"match": "(?<=(\\s|\\(|\\[|\\{))\\s*(if(-[-\\p{Ll}\\?]*)?|when(-[-\\p{Ll}]*)?|set|let|let\\*|flet|flet\\*|fletrec|macrolet|syntaxlet|function|fun|let-function|letrec-function|let-macro|if|cond|else|case|receive|when|after|try|catch(-[-\\p{Ll}\\?]*)?|binding|loop|recur|fn|throw[\\p{Ll}\\-]*|try|catch|finally|([\\p{Ll}]*case))(?=(\\s|\\)|\\]|\\}))",
+					"match": "(?<=(\\s|\\(|\\[|\\{))\\s*(if(-[-\\p{Ll}\\?]*)?|when(-[-\\p{Ll}]*)?|set|let|let\\*|flet|flet\\*|fletrec|macrolet|syntaxlet|function|fun|let-function|letrec-function|let-macro|if|cond|else|case|receive|when|after|try|catch(-[-\\p{Ll}\\?]*)?|binding|fn|throw[\\p{Ll}\\-]*|try|catch|finally|([\\p{Ll}]*case))(?=(\\s|\\)|\\]|\\}))",
 					"name": "storage.control.lfe"
 				},
 				{

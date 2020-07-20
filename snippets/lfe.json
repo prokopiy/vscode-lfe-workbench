@@ -1,4 +1,10 @@
 {
+	"defmodule": {
+		"scope": "lfe",
+		"prefix": "defmodule ",
+		"body": "defmodule ${1:module-name}\n\t(export (${2:function-name}${2:function-arity}))",
+		"description": "Module definition"
+	},
 	"defun basic": {
 		"scope": "lfe",
 		"prefix": "defun ",
@@ -27,7 +33,7 @@
 		"scope": "lfe",
 		"prefix": "case",
 		"body": "case ${1:expression}\n\t(${2:pattern1} (when ${3:guard1}) ${4:body1})\n\t(${5:pattern2} (when ${6:guard2}) ${7:body2})",
-		"description": "With patterns - Defines a new function with patterns."
+		"description": "Case form"
 	},
 	"let": {
 		"scope": "lfe",
