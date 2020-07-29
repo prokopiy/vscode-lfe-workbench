@@ -1,4 +1,4 @@
-# LFE (Lisp Flavored Erlang) language support
+# LFE (*[Lisp Flavored Erlang](https://lfe.io/)*) language support
 
 ## Features
 
