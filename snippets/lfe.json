@@ -8,13 +8,13 @@
 	"defun basic": {
 		"scope": "lfe",
 		"prefix": "defun ",
-		"body": "defun ${1:function-name} (${2:arguments})\n\t${3:body}",
+		"body": "defun ${1:function-name} [${2:arguments}]\n\t${3:body}",
 		"description": "Simple - Defines a new function in the global environment."
 	},
 	"defun with patterns": {
 		"scope": "lfe",
 		"prefix": "defun ",
-		"body": "defun ${1:function-name}\n\t((${2:argpattern1}) (when ${3:guard1}) ${4:body1})\n\t((${5:argpattern2}) (when ${6:guard2}) ${7:body2})",
+		"body": "defun ${1:function-name}\n\t([${2:argpattern1}] (when ${3:guard1}) ${4:body1})\n\t([${5:argpattern2}] (when ${6:guard2}) ${7:body2})",
 		"description": "With patterns - Defines a new function with patterns."
 	},
 	"if": {
