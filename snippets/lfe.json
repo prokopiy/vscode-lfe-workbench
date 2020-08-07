@@ -64,5 +64,12 @@
 		"prefix": "defrecord ",
 		"body": "defrecord ${1:record-name}\n\t(${2:field-name1} ${3:default-value1})",
 		"description": "Provides a shorthand notation for a function special form involving a lambda expression."
+	},
+	"defmacro": {
+		"scope": "lfe",
+		"prefix": "defmacro ",
+		"body": "defmacro ${1:macro-name} [${2:parameters}]\n\t${3:body}",
+		"description": "defmacro."
 	}
+
 }
