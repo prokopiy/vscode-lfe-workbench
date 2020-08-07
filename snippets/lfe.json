@@ -26,7 +26,7 @@
 	"cond": {
 		"scope": "lfe",
 		"prefix": "cond ",
-		"body": "cond (${1:test-form-1} ${2:form1})\n      (${3:test-form-2} ${4:form2})",
+		"body": "cond [${1:test-form-1} ${2:form1}]\n      [${3:test-form-2} ${4:form2}]",
 		"description": "Allows the execution of forms to be dependent on test-form."
 	},
 	"case": {
@@ -38,19 +38,25 @@
 	"let": {
 		"scope": "lfe",
 		"prefix": "let ",
-		"body": "let ((${1:var1} ${2:init-form-1})\n      (${3:var2} ${4:init-form-2})",
+		"body": "let [(${1:var1} ${2:init-form-1})\n      (${3:var2} ${4:init-form-2})]\n\t${5:body}",
 		"description": "Creates new variable bindings and performs the bindings in parallel."
 	},
 	"let*": {
 		"scope": "lfe",
 		"prefix": "let* ",
-		"body": "let* ((${1:var1} ${2:init-form-1})\n       (${3:var2} ${4:init-form-2})",
+		"body": "let* [(${1:var1} ${2:init-form-1})\n       (${3:var2} ${4:init-form-2})]\n\t${5:body}",
 		"description": "Creates new variable bindings and performs the bindings sequentially."
+	},
+	"flet": {
+		"scope": "lfe",
+		"prefix": "flet ",
+		"body": "flet [(${1:function-name} [${2:function-parameters}] ${3:function-body})]\n\t${4:body}",
+		"description": "Creates new function bindings and performs the bindings sequentially."
 	},
 	"lambda": {
 		"scope": "lfe",
 		"prefix": "lambda ",
-		"body": "lambda (${1:lambda-list}) ${2:form}",
+		"body": "lambda (${1:parameters}) ${2:body}",
 		"description": "Provides a shorthand notation for a function special form involving a lambda expression."
 	},
 	"export": {
@@ -63,13 +69,13 @@
 		"scope": "lfe",
 		"prefix": "defrecord ",
 		"body": "defrecord ${1:record-name}\n\t(${2:field-name1} ${3:default-value1})",
-		"description": "Provides a shorthand notation for a function special form involving a lambda expression."
+		"description": "Define record."
 	},
 	"defmacro": {
 		"scope": "lfe",
 		"prefix": "defmacro ",
 		"body": "defmacro ${1:macro-name} [${2:parameters}]\n\t${3:body}",
-		"description": "defmacro."
+		"description": "Define macros."
 	}
 
 }
