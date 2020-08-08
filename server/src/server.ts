@@ -100,7 +100,7 @@ connection.onDidChangeConfiguration(change => {
 		documentSettings.clear();
 	} else {
 		globalSettings = <ExampleSettings>(
-			(change.settings.languageServerExample || defaultSettings)
+			(change.settings.LFELanguageServer || defaultSettings)
 		);
 	}
 
@@ -116,7 +116,7 @@ function getDocumentSettings(resource: string): Thenable<ExampleSettings> {
 	if (!result) {
 		result = connection.workspace.getConfiguration({
 			scopeUri: resource,
-			section: 'languageServerExample'
+			section: 'LFELanguageServer'
 		});
 		documentSettings.set(resource, result);
 	}
@@ -140,7 +140,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 
 	// The validator creates diagnostics for all uppercase words length 2 and more
 	let text = textDocument.getText();
-	let pattern = /\b[A-Z]{2,}\b/g;
+	let pattern = /\b[A-Z]{32,}\b/g;
 	let m: RegExpExecArray | null;
 
 	let problems = 0;
@@ -194,24 +194,14 @@ connection.onCompletion(
 		// info and always provide the same completion items.
 		return [
 			{
-				label: 'TypeScript',
-				kind: CompletionItemKind. Text,
+				label: 'random:uniform',
+				kind: CompletionItemKind.Function,
 				data: 1
 			},
 			{
-				label: 'JavaScript',
-				kind: CompletionItemKind.Text,
-				data: 2
-			},
-			{
-				label: 'timer',
-				kind: CompletionItemKind.Module,
-				data: 3
-			},
-			{
-				label: 'timer:start',
+				label: 'io:format',
 				kind: CompletionItemKind.Function,
-				data: 4
+				data: 2
 			}
 		];
 	}
@@ -224,9 +214,9 @@ connection.onCompletionResolve(
 		if (item.data === 1) {
 			item.detail = 'TypeScript details';
 			item.documentation = 'TypeScript documentation';
-		} else if (item.data === 2) {
-			item.detail = 'JavaScript details';
-			item.documentation = 'JavaScript documentation';
+		} else if (item.kind === CompletionItemKind.Function) {
+			item.detail = 'Function details';
+			item.documentation = 'Function documentation ...';
 		}
 		return item;
 	}

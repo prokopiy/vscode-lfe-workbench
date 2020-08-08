@@ -1,47 +1,66 @@
 {
-    "name": "vscode-lfe-workbench",
-    "displayName": "VSCode LFE Workbench",
-    "description": "This VSCode extension support syntax highlighting and snippets for LFE",
-    "version": "0.0.16",
-    "publisher": "prokopiy",
-    "engines": {
-        "vscode": "^1.47.0"
-    },
-	"activationEvents": [
-		"onLanguage:lfe"
+	"name": "vscode-lfe-workbench",
+	"displayName": "VSCode LFE Workbench",
+	"description": "This VSCode extension support syntax highlighting and snippets for LFE",
+	"author": "Prokopiy N. Stelmash",
+	"license": "MIT",
+	"version": "0.0.18",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/prokopiy/vscode-lfe-workbench.git"
+	},
+	"publisher": "prokopiy",
+	"categories": [],
+	"keywords": [
+		"multi-root ready"
 	],
-    "categories": [
-        "Programming Languages",
-        "Snippets"
-    ],
-    "main": "./client/src/extension.ts",
-    "contributes": {
-        "languages": [{
-            "id": "lfe",
-            "aliases": ["LFE", "lfe", "LISP", "lisp", "Lisp Flavoured Erlang"],
-            "extensions": [".lfe", ".lfescript"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "lfe",
-            "scopeName": "source.lfe",
-            "path": "./syntaxes/lfe.tmLanguage.json"
-        }],
-        "snippets": [{
-			"language": "lfe",
-            "path": "./snippets/lfe.json"
-        }],
-        "configuration": {
+	"engines": {
+		"vscode": "^1.47.0"
+	},
+	"activationEvents": [
+		"onLanguage:plaintext"
+	],
+	"main": "./client/out/extension",
+	"contributes": {
+		"languages": [
+			{
+				"id": "lfe",
+				"aliases": [
+					"LFE",
+					"lfe",
+					"Lisp Flavoured Erlang"
+				],
+				"extensions": [
+					".lfe",
+					".lfescript"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "lfe",
+				"scopeName": "source.lfe",
+				"path": "./syntaxes/lfe.tmLanguage.json"
+			}
+		],
+		"snippets": [
+			{
+				"language": "lfe",
+				"path": "./snippets/lfe.json"
+			}
+		],
+		"configuration": {
 			"type": "object",
 			"title": "Example configuration",
 			"properties": {
-				"languageServerExample.maxNumberOfProblems": {
+				"LFELanguageServer.maxNumberOfProblems": {
 					"scope": "resource",
 					"type": "number",
 					"default": 100,
 					"description": "Controls the maximum number of problems produced by the server."
 				},
-				"languageServerExample.trace.server": {
+				"LFELanguageServer.trace.server": {
 					"scope": "window",
 					"type": "string",
 					"enum": [
@@ -54,14 +73,20 @@
 				}
 			}
 		}
-
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/prokopiy/vscode-lfe-workbench.git"
-    },
-    "bugs": {
-        "url": "https://github.com/prokopiy/vscode-lfe-workbench/issues"
-    },
-    "homepage": "https://github.com/prokopiy/vscode-lfe-workbench/blob/master/README.md"
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -b",
+		"watch": "tsc -b -w",
+		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
+		"test": "sh ./scripts/e2e.sh"
+	},
+	"devDependencies": {
+		"@types/mocha": "^7.0.2",
+		"mocha": "^8.0.1",
+		"@types/node": "^12.12.0",
+		"eslint": "^6.4.0",
+		"@typescript-eslint/parser": "^2.3.0",
+		"typescript": "^3.9.4"
+	}
 }

@@ -65,7 +65,7 @@ connection.onDidChangeConfiguration(change => {
         documentSettings.clear();
     }
     else {
-        globalSettings = ((change.settings.languageServerExample || defaultSettings));
+        globalSettings = ((change.settings.LFELanguageServer || defaultSettings));
     }
     // Revalidate all open text documents
     documents.all().forEach(validateTextDocument);
@@ -78,7 +78,7 @@ function getDocumentSettings(resource) {
     if (!result) {
         result = connection.workspace.getConfiguration({
             scopeUri: resource,
-            section: 'languageServerExample'
+            section: 'LFELanguageServer'
         });
         documentSettings.set(resource, result);
     }
@@ -98,7 +98,7 @@ async function validateTextDocument(textDocument) {
     let settings = await getDocumentSettings(textDocument.uri);
     // The validator creates diagnostics for all uppercase words length 2 and more
     let text = textDocument.getText();
-    let pattern = /\b[A-Z]{2,}\b/g;
+    let pattern = /\b[A-Z]{32,}\b/g;
     let m;
     let problems = 0;
     let diagnostics = [];
@@ -147,24 +147,14 @@ connection.onCompletion((_textDocumentPosition) => {
     // info and always provide the same completion items.
     return [
         {
-            label: 'TypeScript',
-            kind: vscode_languageserver_1.CompletionItemKind.Text,
+            label: 'random:uniform',
+            kind: vscode_languageserver_1.CompletionItemKind.Function,
             data: 1
         },
         {
-            label: 'JavaScript',
-            kind: vscode_languageserver_1.CompletionItemKind.Text,
-            data: 2
-        },
-        {
-            label: 'timer',
-            kind: vscode_languageserver_1.CompletionItemKind.Module,
-            data: 3
-        },
-        {
-            label: 'timer:start',
+            label: 'io:format',
             kind: vscode_languageserver_1.CompletionItemKind.Function,
-            data: 4
+            data: 2
         }
     ];
 });
@@ -175,9 +165,9 @@ connection.onCompletionResolve((item) => {
         item.detail = 'TypeScript details';
         item.documentation = 'TypeScript documentation';
     }
-    else if (item.data === 2) {
-        item.detail = 'JavaScript details';
-        item.documentation = 'JavaScript documentation';
+    else if (item.kind === vscode_languageserver_1.CompletionItemKind.Function) {
+        item.detail = 'Function details';
+        item.documentation = 'Function documentation ...';
     }
     return item;
 });
