@@ -4,7 +4,7 @@
 	"description": "This VSCode extension support syntax highlighting and snippets for LFE",
 	"author": "Prokopiy N. Stelmash",
 	"license": "MIT",
-	"version": "0.0.18",
+	"version": "0.0.22",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/prokopiy/vscode-lfe-workbench.git"
