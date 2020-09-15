@@ -4,21 +4,21 @@
 	"description": "This VSCode extension support syntax highlighting and snippets for LFE",
 	"author": "Prokopiy N. Stelmash",
 	"license": "MIT",
-	"version": "0.0.22",
+	"version": "0.0.30",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/prokopiy/vscode-lfe-workbench.git"
 	},
 	"publisher": "prokopiy",
-	"categories": [],
+	"categories": ["Programming Languages","Snippets"],
 	"keywords": [
-		"multi-root ready"
+		"LFE", "LISP", "snippets", "completitions"
 	],
 	"engines": {
 		"vscode": "^1.47.0"
 	},
 	"activationEvents": [
-		"onLanguage:plaintext"
+		"onLanguage:lfe"
 	],
 	"main": "./client/out/extension",
 	"contributes": {
