@@ -435,7 +435,7 @@ connection.onCompletion(
 			// connection.console.log(`onCompletion: parsing line:${ttt}`);
 			var mod_fun_pattern: RegExp = /[0-9a-z_]+[0-9a-z_\-\=\!\@\#\$\%\^\&\;\?]*\:[0-9a-z_]*$/
 			let m1 = mod_fun_pattern.exec(ttt);
-
+			
 			if (m1 != null) {
 				connection.console.log(`onCompletion: find pattern: ${m1[0]}`);
 				// var pattern2: RegExp = /[a-z_]+[0-9a-z_]*$/

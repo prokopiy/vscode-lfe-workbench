@@ -7,6 +7,8 @@ This VSCode extension support:
 - Syntax highlighting
 - Snippets
 - Autocompletitions for standard modules
+- Go to / Peek at definition
+
 
 ## Requirements
 - Installed LFE 

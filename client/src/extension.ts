@@ -1,6 +1,7 @@
 
 import * as path from 'path';
 import { workspace, ExtensionContext, window } from 'vscode';
+import * as vscode from 'vscode';
 
 import {
 	LanguageClient,
@@ -9,10 +10,23 @@ import {
 	TransportKind
 } from 'vscode-languageclient';
 
+import * as definition from './providers/definition';
+
 let client: LanguageClient;
+
+// include the 'file' and 'untitled' to the
+// document selector. All other schemes are
+// not known and therefore not supported.
+const documentSelector = [
+    { scheme: 'file', language: 'lfe' },
+    { scheme: 'jar', language: 'lfe' },
+    { scheme: 'untitled', language: 'lfe' }
+];
 
 export function activate(context: ExtensionContext) {
 	// The server is implemented in node
+
+	context.subscriptions.push(vscode.languages.registerDefinitionProvider(documentSelector, new definition.LFEDefinitionProvider()));
 	let serverModule = context.asAbsolutePath(
 		path.join('server', 'out', 'server.js')
 	);
