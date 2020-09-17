@@ -233,7 +233,7 @@ function get_module_functions_completitions(moduleName:string) : CompletionItem[
 				// connection.console.log(`get_module_functions_completitions: ${r}`);
 				for (var j in r) {
 					// result.push(moduleName + ":" + r[j]);
-					result.push({label: String(moduleName + ":" + r[j]), kind: CompletionItemKind.Function})
+					result.push({label: String(r[j]), kind: CompletionItemKind.Function})
 				};
 				modfunc_completitions.set(moduleName, result);	
 			};
@@ -423,7 +423,7 @@ connection.onCompletion(
 		// };
 
 
-		// connection.console.log(`${_completionParams.position.character}`);
+		connection.console.log(`${_completionParams.position.character}`);
 		
 		let textDocument = documents.get(_completionParams.textDocument.uri);
 		var result_completitions : CompletionItem[] = [];
@@ -433,7 +433,9 @@ connection.onCompletion(
 			var start = end - _completionParams.position.character;
 			var ttt = text.substring(start, end);
 			// connection.console.log(`onCompletion: parsing line:${ttt}`);
-			var mod_fun_pattern: RegExp = /[0-9a-z_]+[0-9a-z_\-\=\!\@\#\$\%\^\&\;\?]*\:[0-9a-z_]*$/
+			var wordPattern = "([^\\(\\)\\[\\]\\{\\}\\#\\|\\\\\\,\\'\\`\\;\\:\\s]+[^\\(\\)\\[\\]\\{\\}\\;\\:\\s]*)|([^\\(\\)\\[\\]\\{\\}\\#\\\\\\,\\'\\`\\;\\:\\s]+([\\\\\\|]*[^\\(\\)\\[\\]\\{\\}\\;\\:]*)+\\|)";
+			var mod_fun_pattern: RegExp = /[0-9a-zA-Z_]+[0-9a-zA-Z_\-\=\!\@\#\$\%\^\&\;\?]*\:[0-9a-zA-Z_\-]*$/
+			// var mod_fun_pattern = new RegExp(wordPattern + "\\:" + wordPattern);
 			let m1 = mod_fun_pattern.exec(ttt);
 			
 			if (m1 != null) {
@@ -441,7 +443,7 @@ connection.onCompletion(
 				// var pattern2: RegExp = /[a-z_]+[0-9a-z_]*$/
 				var colon_pos = m1[0].indexOf(":");
 				var mod_name: string = m1[0].substring(0, colon_pos);
-				connection.console.log(`onCompletion: mod_name: ${mod_name}`);
+				// connection.console.log(`onCompletion: mod_name: ${mod_name}`);
 				// var fun_name
 				
 				result_completitions = get_module_functions_completitions(mod_name);
