@@ -73,7 +73,7 @@ var core_completitions : CompletionItem[] = [
 	{label:'binary', kind: CompletionItemKind.Function},
 	{label:'map', kind: CompletionItemKind.Function},
 	{label:'map-get', kind: CompletionItemKind.Function},
-	{label:'lambda', kind: CompletionItemKind.Function},
+	// {label:'lambda', kind: CompletionItemKind.Function},
 	{label:'match-lambda', kind: CompletionItemKind.Function},
 	{label:'function', kind: CompletionItemKind.Function},
 	{label:'funcall', kind: CompletionItemKind.Function},
@@ -93,7 +93,11 @@ var core_completitions : CompletionItem[] = [
 	{label:'list-comp', kind: CompletionItemKind.Function},
 	{label:'bc', kind: CompletionItemKind.Function},
 	{label:'binary-comp', kind: CompletionItemKind.Function},
-	{label:'match-spec', kind: CompletionItemKind.Function}
+	{label:'match-spec', kind: CompletionItemKind.Function},
+	{label:'defsyntax', kind: CompletionItemKind.Function},
+	{label:'syntaxlet', kind: CompletionItemKind.Function},
+	{label:'defmodule', kind: CompletionItemKind.Function},
+	{label:'defrecord', kind: CompletionItemKind.Function}
 ];
 var support_completitions : CompletionItem[] = [
 	{label:'abs', kind: CompletionItemKind.Function},
