@@ -42,7 +42,7 @@ var core_completitions = [
     { label: 'binary', kind: vscode_languageserver_1.CompletionItemKind.Function },
     { label: 'map', kind: vscode_languageserver_1.CompletionItemKind.Function },
     { label: 'map-get', kind: vscode_languageserver_1.CompletionItemKind.Function },
-    { label: 'lambda', kind: vscode_languageserver_1.CompletionItemKind.Function },
+    // {label:'lambda', kind: CompletionItemKind.Function},
     { label: 'match-lambda', kind: vscode_languageserver_1.CompletionItemKind.Function },
     { label: 'function', kind: vscode_languageserver_1.CompletionItemKind.Function },
     { label: 'funcall', kind: vscode_languageserver_1.CompletionItemKind.Function },
@@ -62,7 +62,11 @@ var core_completitions = [
     { label: 'list-comp', kind: vscode_languageserver_1.CompletionItemKind.Function },
     { label: 'bc', kind: vscode_languageserver_1.CompletionItemKind.Function },
     { label: 'binary-comp', kind: vscode_languageserver_1.CompletionItemKind.Function },
-    { label: 'match-spec', kind: vscode_languageserver_1.CompletionItemKind.Function }
+    { label: 'match-spec', kind: vscode_languageserver_1.CompletionItemKind.Function },
+    { label: 'defsyntax', kind: vscode_languageserver_1.CompletionItemKind.Function },
+    { label: 'syntaxlet', kind: vscode_languageserver_1.CompletionItemKind.Function },
+    { label: 'defmodule', kind: vscode_languageserver_1.CompletionItemKind.Function },
+    { label: 'defrecord', kind: vscode_languageserver_1.CompletionItemKind.Function }
 ];
 var support_completitions = [
     { label: 'abs', kind: vscode_languageserver_1.CompletionItemKind.Function },
@@ -195,8 +199,12 @@ var support_completitions = [
 var lfe_modules = ["alarm_handler", "app", "application", "appup", "array", "asn1ct", "atomics", "auth", "base64", "beam_lib", "binary", "c", "calendar", "cdv", "cerl", "cerl_clauses", "cerl_trees", "code", "common_test", "compile", "config", "counters", "cover", "cprof", "cpu_sup", "crashdump_viewer", "crypto", "crypto_app", "ct", "ct_cover", "ct_ftp", "ct_hooks", "ct_master", "ct_netconfc", "ct_property_test", "ct_rpc", "ct_run", "ct_slave", "ct_snmp", "ct_ssh", "ct_telnet", "ct_testspec", "dbg", "debugger", "dets", "dialyzer", "diameter", "diameter_app", "diameter_codec", "diameter_dict", "diameter_make", "diameter_sctp", "diameter_tcp", "diameter_transport", "diameterc", "dict", "digraph", "digraph_utils", "disk_log", "disksup", "driver_entry", "dyntrace", "edoc", "edoc_doclet", "edoc_extract", "edoc_layout", "edoc_lib", "edoc_run", "ei", "ei_connect", "ei_global", "eldap", "epmd", "epp", "epp_dodger", "eprof", "erl", "erl_anno", "erl_boot_server", "erl_call", "erl_comment_scan", "erl_ddll", "erl_docgen_app", "erl_driver", "erl_epmd", "erl_eval", "erl_expand_records", "erl_id_trans", "erl_internal", "erl_lint", "erl_nif", "erl_parse", "erl_pp", "erl_prettypr", "erl_prim_loader", "erl_recomment", "erl_scan", "erl_syntax", "erl_syntax_lib", "erl_tar", "erl_tidy", "erl_tracer", "erlang", "erlang.el", "erlc", "erlsrv", "erpc", "error_handler", "error_logger", "erts_alloc", "erts_alloc_config", "escript", "et", "et_collector", "et_selector", "et_viewer", "etop", "ets", "eunit", "eunit_surefire", "file", "file_sorter", "filelib", "filename", "fprof", "ftp", "gb_sets", "gb_trees", "gen_event", "gen_fsm", "gen_sctp", "gen_server", "gen_statem", "gen_tcp", "gen_udp", "gl", "global", "global_group", "glu", "heart", "http_uri", "httpc", "httpd", "httpd_custom_api", "httpd_socket", "httpd_util", "i", "igor", "inet", "inet_res", "inets", "init", "instrument", "int", "io", "io_lib", "jinterface", "kernel_app", "lcnt", "leex", "lists", "log_mf_h", "logger", "logger_disk_log_h", "logger_filters", "logger_formatter", "logger_std_h", "make", "maps", "math", "megaco", "megaco_codec_meas", "megaco_codec_mstone1", "megaco_codec_mstone2", "megaco_codec_transform", "megaco_edist_compress", "megaco_encoder", "megaco_flex_scanner", "megaco_tcp", "megaco_transport", "megaco_udp", "megaco_user", "memsup", "merl", "merl_transform", "mnesia", "mnesia_frag_hash", "mnesia_registry", "mod_alias", "mod_auth", "mod_esi", "mod_security", "ms_transform", "msacc", "net", "net_adm", "net_kernel", "nteventlog", "observer", "odbc", "orddict", "ordsets", "os", "os_sup", "persistent_term", "pg", "pg2", "pool", "prettypr", "proc_lib", "proplists", "public_key", "public_key_app", "qlc", "queue", "rand", "random", "rb", "re", "registry", "rel", "release_handler", "reltool", "relup", "rpc", "run_erl", "runtime_tools_app", "sasl_app", "scheduler", "script", "seq_trace", "sets", "shell", "shell_default", "shell_docs", "slave", "snmp", "snmp_community_mib", "snmp_framework_mib", "snmp_generic", "snmp_index", "snmp_notification_mib", "snmp_pdus", "snmp_standard_mib", "snmp_target_mib", "snmp_user_based_sm_mib", "snmp_view_based_acm_mib", "snmpa", "snmpa_conf", "snmpa_discovery_handler", "snmpa_error", "snmpa_error_io", "snmpa_error_logger", "snmpa_error_report", "snmpa_local_db", "snmpa_mib_data", "snmpa_mib_storage", "snmpa_mpd", "snmpa_network_interface", "snmpa_network_interface_filter", "snmpa_notification_delivery_info_receiver", "snmpa_notification_filter", "snmpa_supervisor", "snmpc", "snmpm", "snmpm_conf", "snmpm_mpd", "snmpm_network_interface", "snmpm_network_interface_filter", "snmpm_user", "socket", "sofs", "ssh", "ssh_agent", "ssh_client_channel", "ssh_client_key_api", "ssh_connection", "ssh_file", "ssh_server_channel", "ssh_server_key_api", "ssh_sftp", "ssh_sftpd", "ssl", "ssl_app", "ssl_crl_cache", "ssl_crl_cache_api", "ssl_session_cache_api", "start", "start_erl", "string", "supervisor", "supervisor_bridge", "sys", "system_information", "systools", "tags", "tftp", "timer", "ttb", "typer", "unicode", "unix_telnet", "uri_string", "user", "werl", "win32reg", "wrap_log_reader", "wx", "wx_misc", "wx_object", "wxAcceleratorEntry", "wxAcceleratorTable", "wxActivateEvent", "wxArtProvider", "wxAuiDockArt", "wxAuiManager", "wxAuiManagerEvent", "wxAuiNotebook", "wxAuiNotebookEvent", "wxAuiPaneInfo", "wxAuiSimpleTabArt", "wxAuiTabArt", "wxBitmap", "wxBitmapButton", "wxBitmapDataObject", "wxBoxSizer", "wxBrush", "wxBufferedDC", "wxBufferedPaintDC", "wxButton", "wxCalendarCtrl", "wxCalendarDateAttr", "wxCalendarEvent", "wxCaret", "wxCheckBox", "wxCheckListBox", "wxChildFocusEvent", "wxChoice", "wxChoicebook", "wxClientDC", "wxClipboard", "wxClipboardTextEvent", "wxCloseEvent", "wxColourData", "wxColourDialog", "wxColourPickerCtrl", "wxColourPickerEvent", "wxComboBox", "wxCommandEvent", "wxContextMenuEvent", "wxControl", "wxControlWithItems", "wxCursor", "wxDataObject", "wxDateEvent", "wxDatePickerCtrl", "wxDC", "wxDCOverlay", "wxDialog", "wxDirDialog", "wxDirPickerCtrl", "wxDisplay", "wxDisplayChangedEvent", "wxDropFilesEvent", "wxEraseEvent", "wxEvent", "wxEvtHandler", "wxFileDataObject", "wxFileDialog", "wxFileDirPickerEvent", "wxFilePickerCtrl", "wxFindReplaceData", "wxFindReplaceDialog", "wxFlexGridSizer", "wxFocusEvent", "wxFont", "wxFontData", "wxFontDialog", "wxFontPickerCtrl", "wxFontPickerEvent", "wxFrame", "wxGauge", "wxGBSizerItem", "wxGCDC", "wxGenericDirCtrl", "wxGLCanvas", "wxGraphicsBrush", "wxGraphicsContext", "wxGraphicsFont", "wxGraphicsMatrix", "wxGraphicsObject", "wxGraphicsPath", "wxGraphicsPen", "wxGraphicsRenderer", "wxGrid", "wxGridBagSizer", "wxGridCellAttr", "wxGridCellBoolEditor", "wxGridCellBoolRenderer", "wxGridCellChoiceEditor", "wxGridCellEditor", "wxGridCellFloatEditor", "wxGridCellFloatRenderer", "wxGridCellNumberEditor", "wxGridCellNumberRenderer", "wxGridCellRenderer", "wxGridCellStringRenderer", "wxGridCellTextEditor", "wxGridEvent", "wxGridSizer", "wxHelpEvent", "wxHtmlEasyPrinting", "wxHtmlLinkEvent", "wxHtmlWindow", "wxIcon", "wxIconBundle", "wxIconizeEvent", "wxIdleEvent", "wxImage", "wxImageList", "wxInitDialogEvent", "wxJoystickEvent", "wxKeyEvent", "wxLayoutAlgorithm", "wxListbook", "wxListBox", "wxListCtrl", "wxListEvent", "wxListItem", "wxListItemAttr", "wxListView", "wxLocale", "wxLogNull", "wxMask", "wxMaximizeEvent", "wxMDIChildFrame", "wxMDIClientWindow", "wxMDIParentFrame", "wxMemoryDC", "wxMenu", "wxMenuBar", "wxMenuEvent", "wxMenuItem", "wxMessageDialog", "wxMiniFrame", "wxMirrorDC", "wxMouseCaptureChangedEvent", "wxMouseCaptureLostEvent", "wxMouseEvent", "wxMoveEvent", "wxMultiChoiceDialog", "wxNavigationKeyEvent", "wxNotebook", "wxNotebookEvent", "wxNotifyEvent", "wxOverlay", "wxPageSetupDialog", "wxPageSetupDialogData", "wxPaintDC", "wxPaintEvent", "wxPalette", "wxPaletteChangedEvent", "wxPanel", "wxPasswordEntryDialog", "wxPen", "wxPickerBase", "wxPopupTransientWindow", "wxPopupWindow", "wxPostScriptDC", "wxPreviewCanvas", "wxPreviewControlBar", "wxPreviewFrame", "wxPrintData", "wxPrintDialog", "wxPrintDialogData", "wxPrinter", "wxPrintout", "wxPrintPreview", "wxProgressDialog", "wxQueryNewPaletteEvent", "wxRadioBox", "wxRadioButton", "wxRegion", "wxSashEvent", "wxSashLayoutWindow", "wxSashWindow", "wxScreenDC", "wxScrollBar", "wxScrolledWindow", "wxScrollEvent", "wxScrollWinEvent", "wxSetCursorEvent", "wxShowEvent", "wxSingleChoiceDialog", "wxSizeEvent", "wxSizer", "wxSizerFlags", "wxSizerItem", "wxSlider", "wxSpinButton", "wxSpinCtrl", "wxSpinEvent", "wxSplashScreen", "wxSplitterEvent", "wxSplitterWindow", "wxStaticBitmap", "wxStaticBox", "wxStaticBoxSizer", "wxStaticLine", "wxStaticText", "wxStatusBar", "wxStdDialogButtonSizer", "wxStyledTextCtrl", "wxStyledTextEvent", "wxSysColourChangedEvent", "wxSystemOptions", "wxSystemSettings", "wxTaskBarIcon", "wxTaskBarIconEvent", "wxTextAttr", "wxTextCtrl", "wxTextDataObject", "wxTextEntryDialog", "wxToggleButton", "wxToolBar", "wxToolbook", "wxToolTip", "wxTopLevelWindow", "wxTreebook", "wxTreeCtrl", "wxTreeEvent", "wxUpdateUIEvent", "wxWindow", "wxWindowCreateEvent", "wxWindowDC", "wxWindowDestroyEvent", "wxXmlResource", "xmerl", "xmerl_eventp", "xmerl_sax_parser", "xmerl_scan", "xmerl_xpath", "xmerl_xs", "xmerl_xsd", "xref", "yecc", "zip", "zlib"];
 var modules_completitions = new Map();
 var modfunc_completitions = new Map();
+var current_completitions = new Map();
+// The workspace folder this server is operating on
+let workspaceFolder;
 connection.onInitialize((params) => {
     let capabilities = params.capabilities;
+    workspaceFolder = params.rootUri;
     get_modules_completitions();
     // Does the client support the `workspace/configuration` request?
     // If not, we fall back using global settings.
@@ -323,6 +331,30 @@ function get_module_functions_completitions(moduleName) {
     ;
     return result;
 }
+function get_functions_completitions_from_text(modname, text) {
+    var completitions = [];
+    var pattern = /(defun|defmacro)+\s+\S+/g;
+    // var mod_fun_pattern = new RegExp(wordPattern + "\\:" + wordPattern);
+    // let m1 = pattern.exec(text);
+    let m1 = text.match(pattern);
+    if (m1 != null) {
+        // connection.console.log(`get_functions_completitions_from_text: find patterns: ${m1} (total - ${m1.length})`);
+        var ll = [];
+        for (var i in m1) {
+            var splitted = m1[i].split(" ");
+            var ff = splitted[splitted.length - 1];
+            if (ll.indexOf(ff) < 0) {
+                ll.push(ff);
+                completitions.push({ label: ff, kind: vscode_languageserver_1.CompletionItemKind.Function });
+                // connection.console.log(`added ${ff}`);
+            }
+        }
+        current_completitions.set(modname, completitions);
+        modfunc_completitions.set(modname, completitions);
+    }
+    // connection.console.log(`result = ${completitions}`);
+    return completitions;
+}
 function myExec(cmd) {
     var r = "";
     try {
@@ -376,15 +408,37 @@ function getDocumentSettings(resource) {
     }
     return result;
 }
+documents.onDidOpen((event) => {
+    // connection.console.log(`[Server(${process.pid}) ${workspaceFolder}] Document opened: ${event.document.uri}`);
+    var mn = event.document.uri.match(/[0-9a-zA-Z_\-]+\.lfe$/);
+    if (mn != null) {
+        // connection.console.log(`Document opened: ${mn[0].split(".")[0]}`);
+        get_functions_completitions_from_text(mn[0].split(".")[0], event.document.getText());
+    }
+});
 // Only keep settings for open documents
 documents.onDidClose(e => {
     documentSettings.delete(e.document.uri);
 });
+documents.onDidSave((event) => {
+    // connection.console.log(`[Server(${process.pid}) ${workspaceFolder}] Document opened: ${event.document.uri}`);
+    var mn = event.document.uri.match(/[0-9a-zA-Z_\-]+\.lfe$/);
+    if (mn != null) {
+        // connection.console.log(`Document opened: ${mn[0].split(".")[0]}`);
+        get_functions_completitions_from_text(mn[0].split(".")[0], event.document.getText());
+    }
+});
 // The content of a text document has changed. This event is emitted
 // when the text document first opened or when its content has changed.
 documents.onDidChangeContent(change => {
-    // let textDocument = change.document;
-    // let text = textDocument.getText();
+    let textDocument = change.document;
+    let text = textDocument.getText();
+    // connection.console.log(`[Server(${process.pid}) ${workspaceFolder}] Document changed: ${change.document.uri}`);
+    var mn = change.document.uri.match(/[0-9a-zA-Z_\-]+\.lfe$/);
+    if (mn != null) {
+        // connection.console.log(`Document opened: ${mn[0].split(".")[0]}`);
+        get_functions_completitions_from_text(mn[0].split(".")[0], text);
+    }
     // current editor
     // const editor = vscode.window.activeTextEditor;
     // check if there is no selection
@@ -469,6 +523,7 @@ connection.onCompletion(
     // };
     connection.console.log(`${_completionParams.position.character}`);
     let textDocument = documents.get(_completionParams.textDocument.uri);
+    var mn = _completionParams.textDocument.uri.match(/[0-9a-zA-Z_\-]+\.lfe$/);
     var result_completitions = [];
     if (textDocument != undefined) {
         let text = textDocument.getText();
@@ -490,7 +545,7 @@ connection.onCompletion(
             result_completitions = get_module_functions_completitions(mod_name);
         }
         else {
-            result_completitions = core_completitions.concat(support_completitions.concat(get_modules_completitions()));
+            result_completitions = core_completitions.concat(support_completitions.concat(get_modules_completitions().concat(current_completitions.get(mn))));
         }
     }
     return result_completitions;

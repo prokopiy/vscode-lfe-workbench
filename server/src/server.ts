@@ -235,9 +235,15 @@ var lfe_modules: Array<string> = ["alarm_handler","app","application","appup","a
 
 var modules_completitions = new Map();
 var modfunc_completitions = new Map();
+var current_completitions = new Map();
+
+// The workspace folder this server is operating on
+let workspaceFolder: string | null;
 
 connection.onInitialize((params: InitializeParams) => {
 	let capabilities = params.capabilities;
+	
+	workspaceFolder = params.rootUri;
 
 	get_modules_completitions();
 
@@ -376,6 +382,31 @@ function get_module_functions_completitions(moduleName:string) : CompletionItem[
 	return result;
 }
 
+function get_functions_completitions_from_text(modname: string, text : String): CompletionItem[]{
+	var completitions : CompletionItem[] = [];
+
+	var pattern: RegExp = /(defun|defmacro)+\s+\S+/g
+	// var mod_fun_pattern = new RegExp(wordPattern + "\\:" + wordPattern);
+	// let m1 = pattern.exec(text);
+	let m1 = text.match(pattern);
+	if (m1 != null) {
+		// connection.console.log(`get_functions_completitions_from_text: find patterns: ${m1} (total - ${m1.length})`);
+		var ll : Array<string> = [];
+		for (var i in m1) {
+			var splitted = m1[i].split(" ");
+			var ff = splitted[splitted.length-1]
+			if (ll.indexOf(ff) < 0) {
+				ll.push(ff)
+				completitions.push({label: ff, kind: CompletionItemKind.Function});
+				// connection.console.log(`added ${ff}`);
+			}
+		}
+		current_completitions.set(modname, completitions);
+		modfunc_completitions.set(modname, completitions);
+	}
+	// connection.console.log(`result = ${completitions}`);
+	return completitions;
+}
 
 function myExec (cmd : string) :string {
 	var r : string = "";
@@ -446,16 +477,42 @@ function getDocumentSettings(resource: string): Thenable<ExampleSettings> {
 	return result;
 }
 
+
+
+documents.onDidOpen((event) => {
+	// connection.console.log(`[Server(${process.pid}) ${workspaceFolder}] Document opened: ${event.document.uri}`);
+	var mn = event.document.uri.match(/[0-9a-zA-Z_\-]+\.lfe$/);
+	if (mn != null) {
+		// connection.console.log(`Document opened: ${mn[0].split(".")[0]}`);
+		get_functions_completitions_from_text(mn[0].split(".")[0], event.document.getText())
+	}
+});
+
 // Only keep settings for open documents
 documents.onDidClose(e => {
 	documentSettings.delete(e.document.uri);
 });
 
+documents.onDidSave((event) => {
+	// connection.console.log(`[Server(${process.pid}) ${workspaceFolder}] Document opened: ${event.document.uri}`);
+	var mn = event.document.uri.match(/[0-9a-zA-Z_\-]+\.lfe$/);
+	if (mn != null) {
+		// connection.console.log(`Document opened: ${mn[0].split(".")[0]}`);
+		get_functions_completitions_from_text(mn[0].split(".")[0], event.document.getText())
+	}
+});
 // The content of a text document has changed. This event is emitted
 // when the text document first opened or when its content has changed.
 documents.onDidChangeContent(change => {
-	// let textDocument = change.document;
-	// let text = textDocument.getText();
+	let textDocument = change.document;
+	let text = textDocument.getText();
+
+	// connection.console.log(`[Server(${process.pid}) ${workspaceFolder}] Document changed: ${change.document.uri}`);
+	var mn = change.document.uri.match(/[0-9a-zA-Z_\-]+\.lfe$/);
+	if (mn != null) {
+		// connection.console.log(`Document opened: ${mn[0].split(".")[0]}`);
+		get_functions_completitions_from_text(mn[0].split(".")[0], text)
+	}
 
 	
     // current editor
@@ -556,10 +613,11 @@ connection.onCompletion(
 		// 	};
 		// };
 
-
+		
 		connection.console.log(`${_completionParams.position.character}`);
 		
 		let textDocument = documents.get(_completionParams.textDocument.uri);
+		var mn = _completionParams.textDocument.uri.match(/[0-9a-zA-Z_\-]+\.lfe$/);
 		var result_completitions : CompletionItem[] = [];
 		if (textDocument != undefined){
 			let text = textDocument.getText();
@@ -583,9 +641,11 @@ connection.onCompletion(
 				result_completitions = get_module_functions_completitions(mod_name);
 
 			} else {
+				
 				result_completitions = core_completitions.concat(
 					support_completitions.concat(
-						get_modules_completitions()));
+						get_modules_completitions().concat(
+							current_completitions.get(mn))));
 			}
 
 		}
