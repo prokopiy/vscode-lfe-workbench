@@ -627,30 +627,25 @@ connection.onCompletion(
 			// connection.console.log(`onCompletion: parsing line:${ttt}`);
 			var wordPattern = "([^\\(\\)\\[\\]\\{\\}\\#\\|\\\\\\,\\'\\`\\;\\:\\s]+[^\\(\\)\\[\\]\\{\\}\\;\\:\\s]*)|([^\\(\\)\\[\\]\\{\\}\\#\\\\\\,\\'\\`\\;\\:\\s]+([\\\\\\|]*[^\\(\\)\\[\\]\\{\\}\\;\\:]*)+\\|)";
 			var mod_fun_pattern: RegExp = /[0-9a-zA-Z_]+[0-9a-zA-Z_\-\=\!\@\#\$\%\^\&\;\?]*\:[0-9a-zA-Z_\-]*$/
-			// var mod_fun_pattern = new RegExp(wordPattern + "\\:" + wordPattern);
 			let m1 = mod_fun_pattern.exec(ttt);
 			
 			if (m1 != null) {
-				connection.console.log(`onCompletion: find pattern: ${m1[0]}`);
-				// var pattern2: RegExp = /[a-z_]+[0-9a-z_]*$/
+				// Если ссылается на модуль, то выдать только функции модуля на который ссылается
+
 				var colon_pos = m1[0].indexOf(":");
 				var mod_name: string = m1[0].substring(0, colon_pos);
-				// connection.console.log(`onCompletion: mod_name: ${mod_name}`);
-				// var fun_name
-				
 				result_completitions = get_module_functions_completitions(mod_name);
 
 			} else {
-				
-				result_completitions = core_completitions.concat(
-					support_completitions.concat(
-						get_modules_completitions().concat(
-							current_completitions.get(mn))));
+				// Если не ссылается на модуль, то выдать стандартные поддерживаемые формы и формы текущего модуля
+				result_completitions = core_completitions;
+				result_completitions = result_completitions.concat(support_completitions);
+				result_completitions = result_completitions.concat(get_modules_completitions());
+				if (mn != null) {
+					result_completitions = result_completitions.concat(current_completitions.get(mn[0].split(".")[0]));
+				}
 			}
-
 		}
-
-
 		return result_completitions;
 	}
 );
