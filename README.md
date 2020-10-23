@@ -14,7 +14,7 @@ This VSCode extension support:
 ![Snippets](assets/images/snippets.gif)
 
 
-- Code completitions for standard modules
+- Various code completitions
 
 ![Code completitions](assets/images/completitions.gif)
 

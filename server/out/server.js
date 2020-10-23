@@ -333,7 +333,7 @@ function get_module_functions_completitions(moduleName) {
 }
 function get_functions_completitions_from_text(modname, text) {
     var completitions = [];
-    var pattern = /(defun|defmacro)+\s+\S+/g;
+    var pattern = /(defun|defmacro|defrecord)+\s+\S+/g;
     // var mod_fun_pattern = new RegExp(wordPattern + "\\:" + wordPattern);
     // let m1 = pattern.exec(text);
     let m1 = text.match(pattern);
@@ -344,9 +344,18 @@ function get_functions_completitions_from_text(modname, text) {
             var splitted = m1[i].split(" ");
             var ff = splitted[splitted.length - 1];
             if (ll.indexOf(ff) < 0) {
+                // connection.console.log(`def... ${splitted[0]}`);
                 ll.push(ff);
-                completitions.push({ label: ff, kind: vscode_languageserver_1.CompletionItemKind.Function });
-                // connection.console.log(`added ${ff}`);
+                if (splitted[0] == "defrecord") {
+                    completitions.push({ label: "make-" + ff, kind: vscode_languageserver_1.CompletionItemKind.Function });
+                    completitions.push({ label: "match-" + ff, kind: vscode_languageserver_1.CompletionItemKind.Function });
+                    completitions.push({ label: "is-" + ff, kind: vscode_languageserver_1.CompletionItemKind.Function });
+                    completitions.push({ label: "fields-" + ff, kind: vscode_languageserver_1.CompletionItemKind.Function });
+                    completitions.push({ label: "update-" + ff, kind: vscode_languageserver_1.CompletionItemKind.Function });
+                }
+                else {
+                    completitions.push({ label: ff, kind: vscode_languageserver_1.CompletionItemKind.Function });
+                }
             }
         }
         current_completitions.set(modname, completitions);
@@ -541,7 +550,7 @@ connection.onCompletion(
             result_completitions = get_module_functions_completitions(mod_name);
         }
         else {
-            // Если не ссылается на модуль, то выдать стандартные поддерживаемые формы и формы текущего модуля
+            // Если не ссылается на модуль, то выдать стандартные поддерживаемые формы текущего файла
             result_completitions = core_completitions;
             result_completitions = result_completitions.concat(support_completitions);
             result_completitions = result_completitions.concat(get_modules_completitions());
